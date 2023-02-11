@@ -1,0 +1,28 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.card {
+  margin: 2% 3%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+  background-color: #9fdcff;
+  border: 1px solid black;
+  text-decoration: none;
+  color: black;
+}
+.card-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.content {
+  font-size: larger;
+  margin: 3% 0;
+}

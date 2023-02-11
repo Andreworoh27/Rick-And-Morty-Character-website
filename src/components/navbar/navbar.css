@@ -1,0 +1,26 @@
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5%;
+    border:  1px solid black;
+    align-items: center;
+    background-color: #53abee;
+    margin-bottom: 1%;
+}
+.navbar-title-container{
+    width: 50%;
+    padding-left: 5%;
+}
+.title{
+    text-decoration: none;
+    color: black;
+}
+.navbar-content-container{
+    display: flex;
+    justify-content: flex-end;
+    width: 50%;
+    padding-right: 5%;
+}
+.navbar-content{
+
+}
