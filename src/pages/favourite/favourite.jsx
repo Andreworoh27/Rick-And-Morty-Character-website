@@ -12,6 +12,10 @@ export default function Favourite() {
   });
 
   useEffect(() => {
+    setpage(1);
+  }, []);
+
+  useEffect(() => {
     localStorage.setItem("favourite", favourite);
   }, [favourite]);
 
