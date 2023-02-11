@@ -1,11 +1,34 @@
 import { useQuery } from "@apollo/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card, { CardContainer } from "../../components/card/card";
 import Navbar from "../../components/navbar/navbar";
-import { GetAllCharacter } from "../../lib/Queries";
+import { SearchCharacterByID } from "../../lib/Queries";
 
 export default function Favourite() {
   const [page, setpage] = useState(1);
+  const [favourite, setfavourite] = useState(() => {
+    const localData = localStorage.getItem("favourite");
+    return localData ? localData.split(",") : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("favourite", favourite);
+  }, [favourite]);
+
+  function handleFav(id) {
+    let findid = findFavouriteId(id);
+    if (findid) {
+      let newfav = favourite.filter((favourite) => favourite !== id);
+      setfavourite(newfav);
+      window.location.reload();
+    } else {
+      setfavourite((favourite) => [...favourite, id]);
+    }
+  }
+
+  function findFavouriteId(id) {
+    return favourite.find((item) => item === id);
+  }
 
   function handleNextPage() {
     setpage(page + 1);
@@ -14,14 +37,18 @@ export default function Favourite() {
     setpage(page - 1);
   }
 
-  const { loading, error, data } = useQuery(GetAllCharacter, {
+  const favIds = localStorage.getItem("favourite");
+  const ids = favIds ? favIds.split(",") : 0;
+
+  const { loading, error, data } = useQuery(SearchCharacterByID, {
     variables: {
-      page: page,
+      id: ids,
     },
   });
 
   if (error) return <div>{error.message}</div>;
   if (loading) return <div>loading...</div>;
+  if (!loading) console.log(data.charactersByIds);
   return (
     <div>
       <Navbar />
@@ -31,10 +58,8 @@ export default function Favourite() {
           {!loading &&
             !error &&
             data &&
-            data.characters.results.map((character, idx) => {
-              if (localStorage.getItem(character.id) !== null) {
-                return <Card key={character.id} characters={character}></Card>;
-              }
+            data.charactersByIds.map((character, idx) => {
+              return <Card key={character.id} characters={character} handlefav={handleFav} findfavourite={findFavouriteId}></Card>;
             }, "no character")}
         </CardContainer>
       </div>

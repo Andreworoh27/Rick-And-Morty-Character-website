@@ -1,21 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./card.css";
 
-export default function Card(characters,{children, ...attr }) {
+export default function Card(characters, { children, ...attr }) {
   const character = characters.characters;
-  let check = localStorage.getItem(character.id) == null ? false : true;
-  const [fav, setFav] = useState(check);
-  const handleFav = (id, name) => {
-    if (!fav) {
-      localStorage.setItem(id, name);
-      setFav(true);
-    } else {
-      localStorage.removeItem(id);
-      setFav(false);
-    }
-  };
-  // console.log(idx);
   return (
     <div className="card">
       <Link to={`/${character.id}`} {...attr} style={{ textDecoration: "none", color: "black" }}>
@@ -35,8 +22,8 @@ export default function Card(characters,{children, ...attr }) {
           </div>
         </CardDetail>
       </Link>
-      <div style={{ alignSelf: "flex-end" }} onClick={() => handleFav(character.id, character.name)}>
-        favourite : <button> {fav ? "💗" : "🤍"}</button>
+      <div style={{ alignSelf: "flex-end" }} onClick={() => characters.handlefav(character.id)}>
+        favourite : <button> {characters.findfavourite(character.id) ? "💗" : "🤍"}</button>
       </div>
     </div>
   );
@@ -62,17 +49,6 @@ function CardDetail({ children, ...attr }) {
 
 export function CardCharacterDetail(details, { children, ...attr }) {
   const detail = details.details;
-  let check = localStorage.getItem(detail.id) == null ? false : true;
-  const [fav, setFav] = useState(check);
-  const handleFav = (id, name) => {
-    if (!fav) {
-      localStorage.setItem(id, name);
-      setFav(true);
-    } else {
-      localStorage.removeItem(id);
-      setFav(false);
-    }
-  };
   return (
     <div className="card" {...attr}>
       <CardImage src={detail.image}></CardImage>
@@ -99,8 +75,8 @@ export function CardCharacterDetail(details, { children, ...attr }) {
           Location : <br /> {detail.location.name}
         </div>
       </CardDetail>
-      <div style={{ alignSelf: "flex-end" }} onClick={() => handleFav(detail.id, detail.name)}>
-        favourite : <button> {fav ? "💗" : "🤍"}</button>
+      <div style={{ alignSelf: "flex-end" }} onClick={() => details.handlefav(detail.id)}>
+        favourite : <button> {details.findfavourite(detail.id) ? "💗" : "🤍"}</button>
       </div>
     </div>
   );
