@@ -34,13 +34,6 @@ export default function Favourite() {
     return favourite.find((item) => item === id);
   }
 
-  function handleNextPage() {
-    setpage(page + 1);
-  }
-  function handlePreviousPage() {
-    setpage(page - 1);
-  }
-
   const favIds = localStorage.getItem("favourite");
   const ids = favIds ? favIds.split(",") : 0;
 
@@ -67,17 +60,6 @@ export default function Favourite() {
             }, "no character")}
         </CardContainer>
       </div>
-      <button onClick={() => handlePreviousPage()}>-</button>
-      <button onClick={() => handleNextPage()}>+</button>
     </div>
   );
 }
-
-/*
-mau bikin fav page :
-1. local storage key jadi index 
-2. local storage value jadi id dari character
-3. pas di fav ambil smua local storage id
-4. search setiap id di search pake query search by id dan store di variabel
-5. display pake map
-*/

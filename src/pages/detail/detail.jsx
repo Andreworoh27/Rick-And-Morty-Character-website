@@ -39,10 +39,8 @@ export default function Detail() {
   if (loading) return <div>loading...</div>;
   return (
     <div>
-      {/* {console.log(data.charactersByIds)} */}
       <Navbar />
       <CardContainer>
-        {/* <Card characters={data.charactersByIds[0]}></Card> */}
         <CardCharacterDetail details={data.charactersByIds[0]} handlefav={handleFav} findfavourite={findFavouriteId}></CardCharacterDetail>
       </CardContainer>
     </div>
