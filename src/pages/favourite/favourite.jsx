@@ -5,16 +5,10 @@ import Navbar from "../../components/navbar/navbar";
 import { SearchCharacterByID } from "../../lib/Queries";
 
 export default function Favourite() {
-  const [page, setpage] = useState(1);
   const [favourite, setfavourite] = useState(() => {
     const localData = localStorage.getItem("favourite");
     return localData ? localData.split(",") : [];
   });
-
-  useEffect(() => {
-    setpage(1);
-  }, []);
-
   useEffect(() => {
     localStorage.setItem("favourite", favourite);
   }, [favourite]);
